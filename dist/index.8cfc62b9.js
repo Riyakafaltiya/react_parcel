@@ -2954,12 +2954,12 @@ try {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 var _jsxDevRuntime = require("react/jsx-dev-runtime");
 var _client = require("react-dom/client");
+var _nanoid = require("nanoid");
 var _styleCss = require("./style.css");
 var _react = require("react");
 var _reactDefault = parcelHelpers.interopDefault(_react);
 function Card(props) {
-    const { key, image, title, brand, price } = props;
-    console.log(key);
+    const { image, title, brand, price } = props;
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
         className: "card",
         children: [
@@ -3011,7 +3011,7 @@ function Card(props) {
                 columnNumber: 13
             }, this)
         ]
-    }, key, true, {
+    }, void 0, true, {
         fileName: "script.js",
         lineNumber: 9,
         columnNumber: 9
@@ -3024,16 +3024,21 @@ fetch("https://dummyjson.com/products").then((res)=>res.json()).then((data)=>{
     root.render(/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
         className: "container",
         children: data.products.map((product)=>{
-            return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(Card, {}, void 0, false, {
+            return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(Card, {
+                image: product.thumbnail,
+                title: product.title,
+                brand: product.brand,
+                price: product.price
+            }, void 0, false, {
                 fileName: "script.js",
                 lineNumber: 32,
-                columnNumber: 18
+                columnNumber: 28
             }, undefined);
         })
     }, void 0, false, {
         fileName: "script.js",
         lineNumber: 30,
-        columnNumber: 7
+        columnNumber: 13
     }, undefined));
 });
 // root.render({
@@ -3076,7 +3081,7 @@ $RefreshReg$(_c, "Card");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react-dom/client":"lOjBx","./style.css":"dRy26","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"iTorj":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react-dom/client":"lOjBx","./style.css":"dRy26","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","nanoid":"2ifus"}],"iTorj":[function(require,module,exports) {
 "use strict";
 module.exports = require("ee51401569654d91");
 
@@ -27487,6 +27492,45 @@ exports.export = function(dest, destName, get) {
     });
 };
 
-},{}]},["86oZd","1xC6H","6rimH"], "6rimH", "parcelRequire5f57")
+},{}],"2ifus":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "urlAlphabet", ()=>(0, _indexJs.urlAlphabet));
+parcelHelpers.export(exports, "random", ()=>random);
+parcelHelpers.export(exports, "customRandom", ()=>customRandom);
+parcelHelpers.export(exports, "customAlphabet", ()=>customAlphabet);
+parcelHelpers.export(exports, "nanoid", ()=>nanoid);
+var _indexJs = require("./url-alphabet/index.js");
+let random = (bytes)=>crypto.getRandomValues(new Uint8Array(bytes));
+let customRandom = (alphabet, defaultSize, getRandom)=>{
+    let mask = (2 << Math.log(alphabet.length - 1) / Math.LN2) - 1;
+    let step = -~(1.6 * mask * defaultSize / alphabet.length);
+    return (size = defaultSize)=>{
+        let id = "";
+        while(true){
+            let bytes = getRandom(step);
+            let j = step;
+            while(j--){
+                id += alphabet[bytes[j] & mask] || "";
+                if (id.length === size) return id;
+            }
+        }
+    };
+};
+let customAlphabet = (alphabet, size = 21)=>customRandom(alphabet, size, random);
+let nanoid = (size = 21)=>{
+    let id = "";
+    let bytes = crypto.getRandomValues(new Uint8Array(size));
+    while(size--)id += (0, _indexJs.urlAlphabet)[bytes[size] & 63];
+    return id;
+};
+
+},{"./url-alphabet/index.js":"8jQFj","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"8jQFj":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "urlAlphabet", ()=>urlAlphabet);
+const urlAlphabet = "useandom-26T198340PX75pxJACKVERYMINDBUSHWOLF_GQZbfghjklqvwyzrict";
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["86oZd","1xC6H","6rimH"], "6rimH", "parcelRequire5f57")
 
 //# sourceMappingURL=index.8cfc62b9.js.map
